@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "nanoevents-ap-test-mod",
+  "version": "${version}",
+  "name": "Nanoevents Ap Test Mod",
+  "license": "LGPLv3",
+  "icon": "assets/nanoevents-ap-test-mod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.devtech.test.nanoeventsaptestmod.NanoEventsApTestMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.9.0+build.204",
+    "minecraft": "1.16.1"
+  }
+}
