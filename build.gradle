@@ -1,0 +1,15 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id "java"
+}
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+        }
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+}

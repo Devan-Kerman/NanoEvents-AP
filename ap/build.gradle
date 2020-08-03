@@ -1,0 +1,14 @@
+plugins {
+    id "java"
+}
+
+group 'net.devtech.nanoevents.ap'
+version shared_version
+archivesBaseName = "nanoevents-ap"
+
+dependencies {
+    implementation 'net.devtech:NanoEvents:2.2'
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
