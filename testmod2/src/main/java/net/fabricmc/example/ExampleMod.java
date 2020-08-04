@@ -5,5 +5,7 @@ import net.fabricmc.api.ModInitializer;
 public class ExampleMod implements ModInitializer {
     @Override
     public void onInitialize() {
+        System.out.println("Example mod initialized!");
+        Invokers.init();
     }
 }

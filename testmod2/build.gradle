@@ -10,22 +10,18 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // nanoevents
-    modImplementation 'net.devtech:NanoEvents:2.2'
+    modImplementation 'net.devtech:NanoEvents:2.4.1'
+    compileOnly project(":ap")
     annotationProcessor project(":ap")
-}
 
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
 
 processResources {
     inputs.property "version", project.version

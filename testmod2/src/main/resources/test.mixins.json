@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.fabricmc.example.mixin",
+  "plugin": "net.devtech.nanoevents.plugin.NanoEventMixinPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "NoApplyMixin",
+    "ApplyMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
