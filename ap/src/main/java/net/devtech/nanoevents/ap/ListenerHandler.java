@@ -34,7 +34,7 @@ public class ListenerHandler {
 
 		Ini ini = listeners.computeIfAbsent(method.getEnclosingElement(), s -> new Ini());
 		ini.put(id, "listeners", Utils.getClassName(method.getEnclosingElement()) + "::" + method.getSimpleName());
-		load(method, listener::parameter, ini, id);
+		load(method, listener::args, ini, id);
 	}
 
 	public static void load(Element method, Supplier<Class<?>[]> paramGetter, Ini ini, String id) {
