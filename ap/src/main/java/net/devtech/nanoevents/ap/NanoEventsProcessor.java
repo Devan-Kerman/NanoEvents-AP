@@ -5,6 +5,7 @@ import net.devtech.nanoevents.api.annotations.Invoker;
 import org.ini4j.Ini;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
@@ -21,9 +22,11 @@ import java.util.Set;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class NanoEventsProcessor extends AbstractProcessor {
+    public static ProcessingEnvironment proc;
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (roundEnv.processingOver()) return true;
+        proc = this.processingEnv;
         this.processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "NanoEvents Annotation processor running!");
         // class name -> ini file
         Map<Element, Ini> eventConfigs = new HashMap<>();

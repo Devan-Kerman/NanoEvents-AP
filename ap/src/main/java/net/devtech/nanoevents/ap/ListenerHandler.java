@@ -5,13 +5,14 @@ import net.devtech.nanoevents.api.annotations.Name;
 import org.ini4j.Ini;
 
 import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
+import javax.lang.model.element.*;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
+import javax.tools.Diagnostic;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class ListenerHandler {
 	public static void handle(RoundEnvironment environment, Map<Element, Ini> listeners) {
@@ -34,6 +35,7 @@ public class ListenerHandler {
 
 		Ini ini = listeners.computeIfAbsent(method.getEnclosingElement(), s -> new Ini());
 		ini.put(id, "listeners", Utils.getClassName(method.getEnclosingElement()) + "::" + method.getSimpleName());
+		ini.put(id, "desc", Utils.getDesc((ExecutableElement) method));
 		load(method, listener::args, ini, id);
 	}
 
@@ -46,15 +48,28 @@ public class ListenerHandler {
 				if (anno == null) continue;
 				anno.getElementValues().forEach((m, v) -> {
 					Name name = m.getAnnotation(Name.class);
-					ini.put(id, name == null ? m.getSimpleName().toString() : name.value(), v.getValue().toString());
+					ini.put(id, name == null ? m.getSimpleName().toString() : name.value(), get(v));
 				});
 			}
 		}
 	}
 
+	private static String get(AnnotationValue value) {
+		Object thing = value.getValue();
+		if(thing instanceof List<?>) {
+			return ((List<?>) thing).stream().map(ListenerHandler::toString).collect(Collectors.joining(","));
+		}
+		return toString(thing);
+	}
 
-	private static boolean isClass(Class<?> cls) {
-		while (cls.isArray()) cls = cls.getComponentType();
-		return cls == Class.class;
+	private static String toString(Object object) {
+		if(object instanceof AnnotationValue) {
+			String str = object.toString();
+			if(str.endsWith(".class")) {
+				return str.substring(0, str.length() - ".class".length());
+			}
+			return str;
+		}
+		return object.toString();
 	}
 }

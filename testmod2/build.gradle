@@ -16,7 +16,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
     // nanoevents
-    modImplementation 'net.devtech:NanoEvents:3.0.0'
+    modImplementation 'net.devtech:NanoEvents:3.0.1'
     compileOnly project(":ap")
     annotationProcessor project(":ap")
 
